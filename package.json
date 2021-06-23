@@ -1,0 +1,39 @@
+{
+  "name": "vendor_form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base64-img": "^1.0.4",
+    "cloudinary": "^1.26.0",
+    "cors": "^2.8.5",
+    "debug": "^3.2.7",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.12.14",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^6.0.0",
+    "prettier": "^2.3.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint ./",
+    "*.{js,md}": "prettier --write"
+  }
+}
