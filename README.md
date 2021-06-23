@@ -22,7 +22,7 @@ The Project is well documented on Postman. The Publication link is "https://docu
 
 # Deployment
 
-The Project live deployment is "". Use the documentation to know the route for easy navigation.
+The Project live deployment is "https://fc-vendor-app.herokuapp.com". Use the documentation to know the route for easy navigation.
 
 # Built-With
 
