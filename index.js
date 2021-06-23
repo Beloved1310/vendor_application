@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const debug = require('debug')('app');
-const config = require('./config');
 const { PORT } = require('./config');
 
 const app = express();
@@ -20,14 +19,17 @@ app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
 
 if (process.env.NODE_ENV === 'production') {
-  if (!process.env.CLOUDINARY_CLOUD_NAME && !process.env.MONGODBURI) {
+  if (
+    !process.env.CLOUDINARY_CLOUD_NAME &&
+    !process.env.CLOUDINARY_API_KEY &&
+    !process.env.CLOUDINARY_API_SECRET &&
+    !process.env.MONGODBURI &&
+    !process.env.debug
+  ) {
     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
     process.exist(1);
   }
 }
-
-
-
 
 app.use((err, req, res, next) => {
   if (err) {
