@@ -19,12 +19,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
 
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.CLOUDINARY_CLOUD_NAME) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
+
 if (process.env.NODE_ENV === 'production') {
-  if (!process.env.CLOUDINARY_CLOUD_NAME) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
+    if (!process.env) {
+      debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+      process.exist(1);
+    }
   }
-}
 
 
 app.use((err, req, res, next) => {
