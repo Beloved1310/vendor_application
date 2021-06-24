@@ -8,6 +8,7 @@ const app = express();
 require('./startup/db')();
 
 const vendor = require('./routes/vendor');
+require('./production/production')
 
 app.use(cors({ origin: '*' }));
 app.use(express.static('./server/faceCapture'));
@@ -20,41 +21,41 @@ app.use('/', vendor);
 
 
 
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.CLOUDINARY_CLOUD_NAME ) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.CLOUDINARY_CLOUD_NAME ) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
 
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.debug ) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.debug ) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
 
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.MONGODBURI ) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.MONGODBURI ) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
 
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.CLOUDINARY_API_KEY) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.CLOUDINARY_API_KEY) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
 
 
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.CLOUDINARY_API_SECRET) {
-    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-    process.exist(1);
-  }
-}
+// if (process.env.NODE_ENV === 'production') {
+//   if (!process.env.CLOUDINARY_API_SECRET) {
+//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+//     process.exist(1);
+//   }
+// }
 
 app.use((err, req, res, next) => {
   if (err) {
