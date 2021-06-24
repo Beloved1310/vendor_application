@@ -10,6 +10,15 @@ require('./startup/db')();
 const vendor = require('./routes/vendor');
 require('./production/production')();
 
+process.on('unhandledRejection', (err) => {
+  debug(err, 'Unhandled Rejection at Promise');
+  process.exit(1);
+});
+process.on('uncaughtException', (err) => {
+  debug(err, 'Uncaught Exception thrown');
+  process.exit(1);
+});
+
 app.use(cors({ origin: '*' }));
 app.use(express.static('./server/faceCapture'));
 app.use(express.static('./server/votersCard'));
