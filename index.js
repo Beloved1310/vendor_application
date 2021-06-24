@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-// require('dotenv').config();
+require('dotenv').config();
 const debug = require('debug')('app');
 const { PORT } = require('./config');
 
@@ -20,16 +20,41 @@ app.use('/', vendor);
 
 
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.CLOUDINARY_CLOUD_NAME ) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
 }
 
-// if (process.env.NODE_ENV === 'production') {
-//   if (!process.env.debug ) {
-//     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-//     process.exist(1);
-//   }
-// }
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.debug ) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.MONGODBURI ) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.CLOUDINARY_API_KEY) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
+
+
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.CLOUDINARY_API_SECRET) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
 
 app.use((err, req, res, next) => {
   if (err) {
