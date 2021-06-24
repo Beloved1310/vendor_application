@@ -20,7 +20,7 @@ app.use('/', vendor);
 
 if (process.env.NODE_ENV === 'production') {
   if (
-    !process.env.CLOUDINARY_CLOUD_NAME ||
+    !process.env.CLOUDINARY_CLOUD_NAME &&
     
     !process.env.debug
   ) {
