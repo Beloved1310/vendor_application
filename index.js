@@ -19,9 +19,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
 
 if (process.env.NODE_ENV === 'production') {
-  if (
- !process.env.debug
-  ) {
+  if (!process.env.debug) {
     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
     process.exist(1);
   }
