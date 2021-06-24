@@ -9,6 +9,18 @@ require('./startup/db')();
 
 const vendor = require('./routes/vendor');
 require('./production/production')();
+// const pp = require('./production/enviromentVariable');
+
+// for (const key in pp) {
+
+//   console.log(pp[key]);
+// }
+// // const ff = require('./config')
+// // console.log(ff)
+// // Object.keys(pp).map(function(key, index) {
+// //   console.log(key);
+
+// // });
 
 process.on('unhandledRejection', (err) => {
   debug(err, 'Unhandled Rejection at Promise');
