@@ -21,13 +21,18 @@ app.use('/', vendor);
 
 // console.log(process.env)
 if (process.env.NODE_ENV === 'production') {
-  if ((!process.env.CLOUDINARY_CLOUD_NAME ) && (!process.env.debug )) {
+  if (!process.env.CLOUDINARY_CLOUD_NAME ) {
     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
     process.exist(1);
   }
 }
 
-
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.debug ) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
 
 app.use((err, req, res, next) => {
   if (err) {
