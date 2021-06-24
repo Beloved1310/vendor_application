@@ -8,7 +8,7 @@ const app = express();
 require('./startup/db')();
 
 const vendor = require('./routes/vendor');
-require('./production/production')()
+require('./production/production')();
 
 app.use(cors({ origin: '*' }));
 app.use(express.static('./server/faceCapture'));
@@ -18,9 +18,6 @@ app.use(express.static('./server/passport'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
-
-
-
 
 app.use((err, req, res, next) => {
   if (err) {
