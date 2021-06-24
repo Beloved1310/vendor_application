@@ -8,7 +8,7 @@ const app = express();
 require('./startup/db')();
 
 const vendor = require('./routes/vendor');
-const pp = require('./production/production')
+require('./production/production')()
 
 app.use(cors({ origin: '*' }));
 app.use(express.static('./server/faceCapture'));
@@ -20,7 +20,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
 
 
-pp()
+
 // if (process.env.NODE_ENV === 'production') {
 //   if (!process.env.CLOUDINARY_CLOUD_NAME ) {
 //     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
