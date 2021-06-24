@@ -27,6 +27,13 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
+if (process.env.NODE_ENV === 'production') {
+  if (!process.env.debug ) {
+    debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
+    process.exist(1);
+  }
+}
+
 app.use((err, req, res, next) => {
   if (err) {
     res.status(err.status || 500).send({ message: err.message });
