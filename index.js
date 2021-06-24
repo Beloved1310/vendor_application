@@ -18,8 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);
 
+
+// console.log(process.env)
 if (process.env.NODE_ENV === 'production') {
-  if (!process.env.debug) {
+  if (!process.env) {
     debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
     process.exist(1);
   }
