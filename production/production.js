@@ -1,4 +1,5 @@
 const debug = require('debug')('app');
+require('dotenv').config();
 
 module.exports = () => {
 
