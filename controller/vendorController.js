@@ -8,14 +8,28 @@ const Vendor = require('../Model/Vendor');
 const vendorValidation = require('../validation/vendorValidation');
 
 module.exports = async (req, res) => {
-  if (
-    typeof req.body.personalInformation !== 'object' ||
-    typeof req.body.meansOfIdentifaction !== 'object' ||
-    typeof req.body.businessAddress !== 'object'
-  ) {
-    req.body.personalInformation = JSON.parse(req.body.personalInformation);
-    req.body.meansOfIdentifaction = JSON.parse(req.body.meansOfIdentifaction);
-    req.body.businessAddress = JSON.parse(req.body.businessAddress);
+  if (req.body.personalInformation) {
+    try {
+      req.body.personalInformation = JSON.parse(req.body.personalInformation);
+    } catch {
+      req.body.personalInformation = {};
+    }
+  }
+
+  if (req.body.meansOfIdentifaction) {
+    try {
+      req.body.meansOfIdentifaction = JSON.parse(req.body.meansOfIdentifaction);
+    } catch {
+      req.body.meansOfIdentifaction = {};
+    }
+  }
+
+  if (req.body.businessAddress) {
+    try {
+      req.body.businessAddress = JSON.parse(req.body.businessAddress);
+    } catch {
+      req.body.businessAddress = {};
+    }
   }
 
   const { value, error } = vendorValidation(req.body);
@@ -80,20 +94,6 @@ module.exports = async (req, res) => {
     personalInformation,
     businessAddress,
   } = value;
-  const { location, landmark, phoneNumber, phoneNumberOfDirectors } =
-    businessAddress;
-  const {
-    firstname,
-    lastname,
-    sex,
-    age,
-    phone,
-    email,
-    nationality,
-    state,
-    residentialAddress,
-    city,
-  } = personalInformation;
 
   const vendorForm = new Vendor({
     businessName,
@@ -103,16 +103,7 @@ module.exports = async (req, res) => {
     BusinessNumber,
     AccountNumber,
     personalInformation: {
-      firstname,
-      lastname,
-      sex,
-      age,
-      phone,
-      email,
-      nationality,
-      state,
-      residentialAddress,
-      city,
+      ...personalInformation,
       faceCapture,
     },
     meansOfIdentifaction: {
@@ -121,11 +112,8 @@ module.exports = async (req, res) => {
       passport,
     },
     businessAddress: {
+      ...businessAddress,
       picture,
-      location,
-      landmark,
-      phoneNumber,
-      phoneNumberOfDirectors,
     },
   });
   const data = {

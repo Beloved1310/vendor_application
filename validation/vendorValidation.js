@@ -40,20 +40,20 @@ module.exports = function validate(input) {
 
     meansOfIdentifaction: Joi.object()
       .keys({
-        votersCard: Joi.string().allow(null),
+        votersCard: Joi.string().allow(''),
         nationalId: Joi.when('votersCard', {
-          is: null,
+          is: '',
           then: Joi.string().required().label('iiii'),
-          otherwise: Joi.string().allow(null),
+          otherwise: Joi.string().allow(''),
         }),
         passport: Joi.when('votersCard', {
-          is: null,
+          is: '',
           then: Joi.string(),
-          otherwise: Joi.string().allow(null),
+          otherwise: Joi.string().allow(''),
         }).when(' nationalId', {
-          is: null,
+          is: '',
           then: Joi.string(),
-          otherwise: Joi.string().allow(null),
+          otherwise: Joi.string().allow(''),
         }),
       })
       .or('votersCard', 'nationalId', 'passport'),
