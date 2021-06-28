@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const vendorSchema = new mongoose.Schema(
   {
-    businessName: String,
-    BVN: Number,
-    BusinessType: String,
-    registrationCertificateNumber: Number,
-    BusinessNumber: Number,
-    AccountNumber: Number,
+    business: {
+      name: String,
+      BVN: Number,
+      typee: String,
+      registrationCertificateNumber: Number,
+      number: Number,
+      AccountNumber: Number,
+    },
     personalInformation: {
       firstname: String,
       lastname: String,
@@ -21,10 +23,9 @@ const vendorSchema = new mongoose.Schema(
       city: String,
       faceCapture: String,
     },
-    meansOfIdentifaction: {
-      votersCard: String,
-      nationalId: String,
-      passport: String,
+    identification: {
+      photo: String,
+      typee: String,
     },
 
     businessAddress: {

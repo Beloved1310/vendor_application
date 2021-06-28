@@ -2,27 +2,22 @@ const Joi = require('joi');
 
 module.exports = function validate(input) {
   const schema = Joi.object({
-    businessName: Joi.string(),
+    business: Joi.object().keys({
+      name: Joi.string().required(),
+      BVN: Joi.number().integer().positive(),
+      typee: Joi.string().valid('individual', 'corporate'),
+      registrationCertificateNumber: Joi.when('typee', {
+        is: 'corporate',
+        then: Joi.number().integer().positive().required(),
+      }),
+      number: Joi.when('typee', {
+        is: 'corporate',
+        then: Joi.number().integer().positive().required(),
+      }),
+      AccountNumber: Joi.number().integer().positive(),
+    }),
+
     picture: Joi.string(),
-    BVN: Joi.number().integer().positive(),
-    BusinessType: Joi.string().valid('individual', 'corporate'),
-    registrationCertificateNumber: Joi.when('BusinessType', {
-      is: 'corporate',
-      then: Joi.number()
-        .integer()
-        .positive()
-        .required()
-        .label('registration certificate number is required'),
-    }),
-    BusinessNumber: Joi.when('BusinessType', {
-      is: 'corporate',
-      then: Joi.number()
-        .integer()
-        .positive()
-        .required()
-        .label('business number is required'),
-    }),
-    AccountNumber: Joi.number().integer().positive(),
 
     personalInformation: Joi.object().keys({
       firstname: Joi.string().required(),
@@ -38,25 +33,10 @@ module.exports = function validate(input) {
       faceCapture: Joi.string().required(),
     }),
 
-    meansOfIdentifaction: Joi.object()
-      .keys({
-        votersCard: Joi.string().allow(''),
-        nationalId: Joi.when('votersCard', {
-          is: '',
-          then: Joi.string().required().label('iiii'),
-          otherwise: Joi.string().allow(''),
-        }),
-        passport: Joi.when('votersCard', {
-          is: '',
-          then: Joi.string(),
-          otherwise: Joi.string().allow(''),
-        }).when(' nationalId', {
-          is: '',
-          then: Joi.string(),
-          otherwise: Joi.string().allow(''),
-        }),
-      })
-      .or('votersCard', 'nationalId', 'passport'),
+    identification: Joi.object().keys({
+      photo: Joi.string().required(),
+      typee: Joi.string().valid('votersCard', 'intlPassport', 'nationalId'),
+    }),
 
     businessAddress: Joi.object().keys({
       location: Joi.string().min(3).max(300).lowercase().trim().required(),
