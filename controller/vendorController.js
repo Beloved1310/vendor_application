@@ -1,4 +1,3 @@
-// const base64Img = require('base64-img');
 const cloudinary = require('../utilis/cloudinary');
 const Vendor = require('../Model/Vendor');
 const vendorValidation = require('../validation/vendorValidation');
