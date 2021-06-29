@@ -2,22 +2,31 @@ const Joi = require('joi');
 
 module.exports = function validate(input) {
   const schema = Joi.object({
+    faceCapture: Joi.string(),
+    photo: Joi.string().label('identification picture'),
+    picture: Joi.string().label('business address picture'),
     business: Joi.object().keys({
-      name: Joi.string().required(),
-      BVN: Joi.number().integer().positive(),
-      typee: Joi.string().valid('individual', 'corporate'),
-      registrationCertificateNumber: Joi.when('typee', {
+      name: Joi.string().required().label('business name'),
+      BVN: Joi.number().integer().positive().label('bank verification number'),
+      kind: Joi.string().valid('individual', 'corporate'),
+      registrationCertificateNumber: Joi.when('kind', {
         is: 'corporate',
-        then: Joi.number().integer().positive().required(),
+        then: Joi.number()
+          .integer()
+          .positive()
+          .required()
+          .label('registration certificate number'),
       }),
-      number: Joi.when('typee', {
+      number: Joi.when('kind', {
         is: 'corporate',
-        then: Joi.number().integer().positive().required(),
+        then: Joi.number()
+          .integer()
+          .positive()
+          .required()
+          .label('business number'),
       }),
-      AccountNumber: Joi.number().integer().positive(),
+      AccountNumber: Joi.number().integer().positive().label('account number'),
     }),
-
-    picture: Joi.string(),
 
     personalInformation: Joi.object().keys({
       firstname: Joi.string().required(),
@@ -30,19 +39,22 @@ module.exports = function validate(input) {
       state: Joi.string().trim().required(),
       residentialAddress: Joi.string().trim().required(),
       city: Joi.string().trim().required(),
-      faceCapture: Joi.string().required(),
     }),
 
     identification: Joi.object().keys({
-      photo: Joi.string().required(),
-      typee: Joi.string().valid('votersCard', 'intlPassport', 'nationalId'),
+      kind: Joi.string().valid('votersCard', 'intlPassport', 'nationalId'),
     }),
 
-    businessAddress: Joi.object().keys({
+    address: Joi.object().keys({
       location: Joi.string().min(3).max(300).lowercase().trim().required(),
       landmark: Joi.string().min(2).max(200).lowercase().trim().required(),
       phoneNumber: Joi.string().min(7).max(15).trim().required(),
-      phoneNumberOfDirectors: Joi.string().min(7).max(15).trim().required(),
+      phoneNumberOfDirectors: Joi.string()
+        .min(7)
+        .max(15)
+        .trim()
+        .required()
+        .label('phone number of directors'),
     }),
   });
 

@@ -5,7 +5,7 @@ const vendorSchema = new mongoose.Schema(
     business: {
       name: String,
       BVN: Number,
-      typee: String,
+      kind: String,
       registrationCertificateNumber: Number,
       number: Number,
       AccountNumber: Number,
@@ -25,7 +25,7 @@ const vendorSchema = new mongoose.Schema(
     },
     identification: {
       photo: String,
-      typee: String,
+      kind: String,
     },
 
     businessAddress: {

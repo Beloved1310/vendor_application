@@ -20,8 +20,7 @@ process.on('uncaughtException', (err) => {
 });
 
 app.use(cors({ origin: '*' }));
-app.use(express.static('./server/faceCapture'));
-app.use(express.static('./server/photo'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use('/', vendor);

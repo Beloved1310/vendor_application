@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "base64-img": "^1.0.4",
     "cloudinary": "^1.26.0",
     "cors": "^2.8.5",
     "debug": "^3.2.7",

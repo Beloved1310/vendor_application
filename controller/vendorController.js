@@ -1,4 +1,4 @@
-const base64Img = require('base64-img');
+// const base64Img = require('base64-img');
 const cloudinary = require('../utilis/cloudinary');
 const Vendor = require('../Model/Vendor');
 const vendorValidation = require('../validation/vendorValidation');
@@ -27,11 +27,11 @@ module.exports = async (req, res) => {
     }
   }
 
-  if (req.body.businessAddress) {
+  if (req.body.address) {
     try {
-      req.body.businessAddress = JSON.parse(req.body.businessAddress);
+      req.body.address = JSON.parse(req.body.address);
     } catch {
-      req.body.businessAddress = {};
+      req.body.address = {};
     }
   }
 
@@ -40,31 +40,16 @@ module.exports = async (req, res) => {
   if (error) return res.status(400).send({ error: error.details[0].message });
 
   const { secure_url: picture } = await cloudinary.uploader.upload(
-    req.file.path
+    req.files.picture[0].path
+  );
+  const { secure_url: photo } = await cloudinary.uploader.upload(
+    req.files.photo[0].path
+  );
+  const { secure_url: faceCapture } = await cloudinary.uploader.upload(
+    req.files.faceCapture[0].path
   );
 
-  const faceCaptureFilePath = await base64Img.imgSync(
-    value.personalInformation.faceCapture,
-    './server/faceCapture',
-    Date.now()
-  );
-
-  const faceCaptureImage = await cloudinary.uploader.upload(
-    faceCaptureFilePath
-  );
-  const faceCapture = faceCaptureImage.secure_url;
-
-  const photoFilePath = await base64Img.imgSync(
-    value.identification.photo,
-    './server/photo',
-    Date.now()
-  );
-
-  const photoImage = await cloudinary.uploader.upload(photoFilePath);
-  const photo = photoImage.secure_url;
-
-  const { business, identification, personalInformation, businessAddress } =
-    value;
+  const { business, identification, personalInformation, address } = value;
 
   const vendorForm = new Vendor({
     business,
@@ -77,14 +62,15 @@ module.exports = async (req, res) => {
       faceCapture,
     },
 
-    businessAddress: {
-      ...businessAddress,
+    address: {
+      ...address,
       picture,
     },
   });
   const data = {
     faceCapture,
     photo,
+    picture,
   };
 
   await vendorForm.save();
