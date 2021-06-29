@@ -17,7 +17,7 @@ module.exports = () => {
     keys.map((key) => {
       if (!config[key]) {
         debug(`FATAL ERROR: ENVIRONMENT VARIABLE NOT FOUND`);
-        process.exist(1);
+        process.exit(1);
       }
     });
   }
