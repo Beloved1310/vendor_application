@@ -15,25 +15,5 @@ const uploads = upload.fields([
   { name: 'picture' },
 ]);
 router.post('/vendor/registration', uploads, vendorForm);
-// router.post(
-//   '/vendor/registration',
-//   uploads(req, res, function (err){
-//     if(err){
-//       return res.send('Error uploading your new avatar')
-//     }
-
-//   }),
-//   vendorForm
-// );
-
-// app.post('/profile', upload, function (req, res) {
-//   upload(req, res, function (err) {
-//     if (err) {
-//       return res.end('Error uploading your new avatar')
-//     }
-
-//     res.end('You new avatar is uploaded')
-//   }
-// }),
 
 module.exports = router;
