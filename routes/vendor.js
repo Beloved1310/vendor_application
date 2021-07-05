@@ -6,14 +6,13 @@ const express = require('express');
 const router = express.Router();
 const storage = require('../utilis/multer');
 
-const upload = multer({ storage });
-const vendorForm = require('../controller/vendorController');
-
-const uploads = upload.fields([
+const upload = multer({ storage }).fields([
   { name: 'faceCapture' },
   { name: 'photo' },
   { name: 'picture' },
 ]);
-router.post('/vendor/registration', uploads, vendorForm);
+const vendorForm = require('../controller/vendorController');
+
+router.post('/vendor/registration', upload, vendorForm);
 
 module.exports = router;
