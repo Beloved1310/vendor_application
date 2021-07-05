@@ -38,6 +38,20 @@ module.exports = async (req, res) => {
 
   if (error) return res.status(400).send({ error: error.details[0].message });
 
+  if (!req.files.picture) {
+    return res.send({
+      error: 'business address image is not allowed to be empty',
+    });
+  }
+  if (!req.files.photo) {
+    return res.send({
+      error: 'business identification image is not allowed to be empty',
+    });
+  }
+  if (!req.files.faceCapture) {
+    return res.send({ error: 'User face image is not allowed to be empty' });
+  }
+
   const { secure_url: picture } = await cloudinary.uploader.upload(
     req.files.picture[0].path
   );
